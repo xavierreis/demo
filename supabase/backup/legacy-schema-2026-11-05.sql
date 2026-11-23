@@ -1,9 +1,7 @@
 -- BACKUP do schema anterior do projeto Supabase "app-fotografias" (xjcpucztmkkwjcavghud),
--- guardado antes de ser substituído pelo modelo da "Largada de Fotógrafos" (migração 20261123000000).
+-- guardado antes da criação do projeto novo "largada-fotografos". Este projeto antigo ficou intacto e pausado.
 -- Reconstrói o schema e os dados antigos, se for preciso voltar atrás.
--- Nota: o ficheiro da fotografia de teste (bucket "photos", 208 515 bytes, image/png) NÃO foi apagado
--- do storage; o bucket antigo fica intocado (sem políticas) e a app nova usa os buckets
--- "fotografias" e "enunciados".
+-- Nota: nada foi apagado neste projeto antigo (incluindo a fotografia de teste do bucket "photos").
 
 -- ------------------------------------------------------------------------ tabelas
 create table public.profiles (

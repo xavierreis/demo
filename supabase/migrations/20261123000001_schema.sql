@@ -63,24 +63,6 @@ create trigger on_auth_user_email_changed
   after update of email on auth.users
   for each row execute function public.handle_user_email_change();
 
--- Utilizadores que já existam antes desta migração (mantêm o nome do perfil antigo).
-insert into public.profiles (user_id, name, email)
-select u.id,
-       coalesce(nullif(l.display_name, ''), u.raw_user_meta_data->>'name',
-                u.raw_user_meta_data->>'display_name', ''),
-       coalesce(u.email, '')
-  from auth.users u
-  left join public._legacy_profiles l on l.id = u.id
-on conflict (user_id) do nothing;
-insert into public.user_roles (user_id, role)
-select id, 'participant' from auth.users
-on conflict do nothing;
--- Quem era administrador no modelo antigo continua administrador.
-insert into public.user_roles (user_id, role)
-select id, 'administrator' from public._legacy_profiles where is_admin
-on conflict do nothing;
-drop table public._legacy_profiles;
-
 -- ------------------------------------------------------------ estado do concurso
 create table public.contest_settings (
   id                  smallint primary key default 1 check (id = 1),
